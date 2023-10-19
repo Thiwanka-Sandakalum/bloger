@@ -1,0 +1,145 @@
+{
+    "info": {
+        "name": "Blog API",
+        "description": "Collection for testing the Blog API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create a new post",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"title\":\"New Post\",\"content\":\"This is the content of the new post\",\"author\":\"John Doe\"}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/posts",
+                    "protocol": "{{protocol}}",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "{{port}}",
+                    "path": [
+                        "api",
+                        "posts"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get all posts",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/posts",
+                    "protocol": "{{protocol}}",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "{{port}}",
+                    "path": [
+                        "api",
+                        "posts"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get a specific post by ID",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/posts/1",
+                    "protocol": "{{protocol}}",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "{{port}}",
+                    "path": [
+                        "api",
+                        "posts",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Update a post by ID",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"title\":\"Updated Post\",\"content\":\"This is the updated content of the post\",\"author\":\"Jane Doe\"}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/posts/1",
+                    "protocol": "{{protocol}}",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "{{port}}",
+                    "path": [
+                        "api",
+                        "posts",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Delete a post by ID",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/posts/1",
+                    "protocol": "{{protocol}}",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "{{port}}",
+                    "path": [
+                        "api",
+                        "posts",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}
