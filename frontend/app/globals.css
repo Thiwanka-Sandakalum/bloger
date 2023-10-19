@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.pop-up {
+    transform: scale(0);
+    animation: pop-up-anim 0.3s forwards;
+}
+
+@keyframes pop-up-anim {
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
