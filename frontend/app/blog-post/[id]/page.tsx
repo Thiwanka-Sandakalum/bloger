@@ -1,10 +1,10 @@
+import DeleteUpdateDialog from '@/components/DeleteUpdateDialog'
 import axios, { AxiosError } from 'axios'
 import { DateTime } from 'luxon'
 import {Metadata} from 'next'
 import {Raleway} from 'next/font/google'
-import { BiEditAlt } from 'react-icons/bi'
 import {FaBloggerB} from 'react-icons/fa'
-import {MdDeleteOutline} from 'react-icons/md'
+
 
 type Props = {
     params:{
@@ -19,7 +19,7 @@ export const metadata:Metadata = {
 }
 
 async function GetPost(id:number):Promise<ServerResponse> {
-    return new Promise(async(resolve) => {
+    return await new Promise(async(resolve) => {
         try {
             const res = await axios.get(`${process.env.ROOT_URL}/api/posts/${id}`)
             resolve ({
@@ -55,16 +55,19 @@ async function GetPost(id:number):Promise<ServerResponse> {
     })
 }
 
+export default async function page({params:{id}}:Props) { 
 
-export default async function page({params:{id}}:Props) {
+    const res = await GetPost(id);
 
-    // const res = await GetPost(id);
 
-    const res:ServerResponse = {behavior:'OK' , code:200 , data:{id , title:`Isn't the universe amazing ?
-    ` , content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." , date:"2023-10-19T13:00:00.000Z" , author:"Nipuna Nishan"}}
+    // dummy data
+    // const res:ServerResponse = {behavior:'OK' , code:200 , data:{id , title:`Isn't the universe amazing ?
+    // ` , content:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." , date:"2023-10-19T13:00:00.000Z" , author:"Nipuna Nishan"}}
 
+   if(res?.behavior === 'OK')
+   {
     return (
-        <main className={`${raleway.className} w-full bg-white`}>
+        <main className={`${raleway.className} fade-in w-full bg-white fade-in`}>
             <div className='w-[80%] 2xl:mt-32 mt-20 mx-auto'>
                 {res.behavior === 'OK' && 
                     <div>
@@ -73,12 +76,7 @@ export default async function page({params:{id}}:Props) {
                             <h1 className=' text-3xl sm:text-5xl capitalize text-stone-800 font-semibold leading-8 sm:leading-[50px] sm:tracking-wide'>{res.data.title}</h1>
                             <div className='w-full mt-5 sm:mt-10 sm:mb-3 mb-1 sm:text-xl  flex justify-between items-center'>
                                 <h1 className='text-lg font-semibold '>Article ,</h1>
-                                
-                                <div className='flex items-center space-x-2 mr-3 sm:mr-10'>
-                                    <button className='text-xs flex items-center p-1 px-2 rounded  hover:bg-stone-500  hover:text-stone-100 transition duration-300'><BiEditAlt/>Edit</button>
-                                    
-                                    <button className='text-xs bg-red-500 text-white flex items-center p-1 px-2 rounded  hover:bg-red-700 hover:text-white transition duration-300'><MdDeleteOutline/>Delete</button>
-                                </div>
+                                <DeleteUpdateDialog id={id}/>
                             </div>
                             <p className='p-1 text-stone-600 text-md sm:text-lg'>{res.data.content}</p>
                             <div className='flex justify-between items-center mt-10 text-sm text-stone-600'>
@@ -90,4 +88,14 @@ export default async function page({params:{id}}:Props) {
             </div>
         </main>
     )
+   }
+   else
+   {
+    return(
+        <div className='text-sm font-light p-5'>
+            <h1>oops! something went wrong</h1>
+            <p>it looks like there is no any post for id - {id} :/</p>
+        </div>
+    )
+   }
 }
