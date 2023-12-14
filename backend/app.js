@@ -3,12 +3,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { sequelize } = require('./models/Blog');
 
+const path = require("path")
+
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use(express.static(path.join(__dirname, 'dist')));
 // Sequelize sync
 sequelize.sync().then(() => {
   console.log('Connected to the database');
